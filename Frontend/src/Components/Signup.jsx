@@ -18,7 +18,7 @@ export const Signup = () => {
 
     const handleSubmit =(e)=>{
         e.preventDefault();
-        axios.post("http://localhost:3001/signup",{name, email, password})
+        axios.post("http://localhost:3001/signup",{name, email, password, city})
         .then(result=>{
             if(result.status==201){
                 console.log("User Created Successfully");

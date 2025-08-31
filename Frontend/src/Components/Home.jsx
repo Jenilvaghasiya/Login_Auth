@@ -1,7 +1,39 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect} from 'react';
 
 export const Home = () => {
+const navigate = useNavigate();
+const user = JSON.parse(localStorage.getItem("user"));
+  if(!user.city){
+    navigate("/login");
+    return
+  }
+  const [weather, setWeather] = useState(null);
+
+  const API_KEY = "4634072373054c4793255651253108"; 9
+
+  useEffect(() => {
+    if (!user || !user.city) {
+      navigate("/login");
+      return;
+    }
+
+    fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${user.city}`)
+      .then((res) => res.json())
+      .then((data) => setWeather(data))
+      .catch((err) => console.error("Error fetching weather:", err));
+  }, [user, navigate]);
   return (
-    <div>Home</div>
+    <>
+    <h1>{user.city}</h1>
+    {weather ? (
+      <div>
+        <p>🌡 Temperature: {weather.current.temp_c}°C</p>
+      </div>
+    ) : (
+      <p>Loading weather...</p>
+    )}
+    </>
   )
 }

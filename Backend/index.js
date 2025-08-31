@@ -40,7 +40,7 @@ app.post("/login", async(req, res) => {
         if(user){
             const passwordMatch = await bcrypt.compare(password, user.password);
             if(passwordMatch){
-                res.json("success")
+                res.json("Success")
             }else{
                 res.status(401).json("Password Dose Not Match !");
             }

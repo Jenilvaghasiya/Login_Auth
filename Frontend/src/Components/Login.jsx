@@ -20,6 +20,7 @@ export const Login = () => {
       .then(result => {
         if (result.data === "Success") {
           navigate("/home");
+          localStorage.setItem("user", JSON.stringify({city}));
         } else {
           alert("Login Failed: User does not exist!");
         }
