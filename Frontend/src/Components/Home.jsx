@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect} from 'react';
+import { Grid, Paper, Typography } from '@mui/material';
 
 export const Home = () => {
 const navigate = useNavigate();
@@ -26,14 +27,36 @@ const user = JSON.parse(localStorage.getItem("user"));
   }, [user, navigate]);
   return (
     <>
-    <h1>{user.city}</h1>
-    {weather ? (
-      <div>
-        <p>🌡 Temperature: {weather.current.temp_c}°C</p>
-      </div>
-    ) : (
-      <p>Loading weather...</p>
-    )}
+    
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Paper
+        elevation={4}
+        style={{
+          padding: "2rem",
+          borderRadius: "1rem",
+          width: "300px",
+          textAlign: "center"
+        }}
+      >
+        <Typography variant="h4" gutterBottom>
+          {user.city}
+        </Typography>
+
+        {weather ? (
+          <Typography variant="h6">
+            🌡 Temperature: {weather.current.temp_c}°C
+          </Typography>
+        ) : (
+          <Typography variant="body1" color="textSecondary">
+            Loading weather...
+          </Typography>
+        )}
+      </Paper>
+    </Grid>
     </>
   )
 }
